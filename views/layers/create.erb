@@ -1,4 +1,50 @@
+<%= @narrative.to_json %>
 
+<div class="container">
+  <div class="row">
+
+    <!-- Sidebar -->
+    <div class="col-sm-2">
+      <div class="layer-block">
+        <p><strong>Article</strong></p>
+        <p class="small"><strong>Headline:</strong></p>
+        <p class="small"><%= @article['headline'] %></p>
+        <p class="small"><strong>Author name:</strong></p>
+        <p class="small"><%= @article['author_name'] %></p>
+        <p class="small"><strong>Author title:</strong></p>
+        <p class="small"><%= @article['author_title'] %></p>
+        <p class="small"><strong>Article source:</strong></p>
+        <p class="small"><a href="<%= @article['source_url'] %>">Link</a></p>
+      </div><!-- end .layer-block -->
+      
+      <div class="layer-block">
+        <p><strong>Narrative</strong></p>
+        <img src="<%= @narrative['photo_url'] %>" width="100%" />
+
+        <p class="small"><strong>Narrative thread:</strong></p>
+        <p class="small"><%= @narrative['narrative_thread'] %></p>
+        <p class="small"><strong>Photographer name:</strong></p>
+        <p class="small"><%= @narrative['photog_name'] %></p>
+        <p class="small"><strong>Photographer org:</strong></p>
+        <p class="small"><%= @narrative['photog_org'] %></p>
+        <p class="small"><strong>Photo caption:</strong></p>
+        <p class="small"><%= @narrative['caption_content'] %></p>
+        <p class="small"><strong>Photo source:</strong></p>
+        <p class="small"><a href="<%= @narrative['photo_url'] %>">Link</a></p>
+
+      </div><!-- end .layer-block -->
+    </div><!-- end .col-sm-2 -->
+
+    <!-- Content -->
+    <div class="col-sm-10">
+      <!-- Start our form, which we'll post to the api -->
+      <form action="/layers/" method="post">
+        
+      </form>
+    </div>
+
+  </div><!-- end .row -->
+</div><!-- end .container -->
 
 
 
