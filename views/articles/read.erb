@@ -109,15 +109,18 @@
   
 
   <script type="text/javascript">
-    var setHeight = function() {
-      var height = $(window).height();
-      $('.main-image-box').height(height);
-      $('.right-rail').height(height);
-      return window.h = height;
-    };
 
     $(window).on("resize", function () {
-        setHeight();
+        var h = $(window).height(), w = $(window).width();
+        $('.main-image-box').height(h);
+        $('.right-rail').height(h);
+        var tabs = $('.tab').length;
+        var tabHeight = (h/2)/tabs-6;
+        $('.tab').each(function(){
+          $(this).height(tabHeight);
+          $(this).next().height((h/2)-tabHeight);
+          $('.map').height(h/3 - $(this).height());
+        });
     }).resize();
 
     $('.tab').each(function(){
