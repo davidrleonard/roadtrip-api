@@ -1,1 +1,32 @@
-<h1>hi.</h1>
+<div class="container">
+  <!-- Start our form, which we'll post to the api -->
+  <form action="/articles/" method="post">
+    
+    <!-- ARTICLE METADATA FIELDS -->
+    <div class="row layer-block">
+      <div class="col-sm-10">
+        <div class="opener">
+          <h3>About this article</h3>
+          <p>Each roadtryp is based anchored by an article. The article contains photos. Please fill in information about this article.</p>
+        </div>
+          <div class="form-group">
+            <label for="headline">Article headline</label>
+            <input type="text" id="headline" name="headline" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="source_url">Article source URL</label>
+            <input type="text" id="source_url" name="source_url" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="author_name">Article author name</label>
+            <input type="text" id="author_name" name="author_name" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="author_title">Article author tile, organization</label>
+            <input type="text" id="author_title" name="author_title" class="form-control">
+          </div>
+      </div><!-- end .layer-block -->
+    </div><!-- end .row -->
+   <button type="submit" class="btn btn-default">Next step</button>
+  </form>
+</div><!-- end .container -->
