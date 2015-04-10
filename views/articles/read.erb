@@ -17,7 +17,7 @@
     <div id="article">
         
         <div class="col-sm-8">
-        <% unless narrative.nil? %>
+        <% unless @narrative.nil? %>
           <div class="main-image-box" id="image0" style="background-image:url('<%= @narrative['photo_url'] %>')">
           </div>
         <% end %>
@@ -29,7 +29,7 @@
               <span class="icon"><i class="fa fa-compass"></i></span> Story
             </div>
             <div class="tab-content narrative default">
-              <% unless narrative.nil? %>
+              <% unless @narrative.nil? %>
                 <p><%= @narrative['narrative_thread'] %></p>
               <% end %>
             </div>            
@@ -131,14 +131,16 @@
     // map
     var map = L.map('map0');
 
-    <% @layers.each do |layer| %>
-      <% if layer['category'] == "location" %>
-        $('#accordion').find('.tab').click(function(){
-            $(this).next().slideToggle('fast').addClass('default');
-            $(".tab-content").not($(this).next()).slideUp('fast');
-            L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-            map.setView([<%= layer['lon'] %>, <%= layer['lon'] %>], 14);
-        });
+    <% unless @layers.nil? %>
+      <% @layers.each do |layer| %>
+        <% if layer['category'] == "location" %>
+          $('#accordion').find('.tab').click(function(){
+              $(this).next().slideToggle('fast').addClass('default');
+              $(".tab-content").not($(this).next()).slideUp('fast');
+              L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+              map.setView([<%= layer['lon'] %>, <%= layer['lon'] %>], 14);
+          });
+        <% end %>
       <% end %>
     <% end %>
   </script>
