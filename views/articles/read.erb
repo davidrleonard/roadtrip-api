@@ -1,5 +1,141 @@
-<%= @article.to_json %>
-<hr>
-<%= @narratives.to_json %>
-<hr>
-<%= @layers.to_json %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Roadtrip</title>
+    <link rel="stylesheet" href="http://roadtryp.co/css/dist/bootstrap.min.css">
+    <link rel="stylesheet" href="http://roadtryp.co/css/dist/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://roadtryp.co/css/application.css">
+  </head>
+  
+  <body>
+
+    <div id="article">
+
+        <div class="col-sm-8">
+          <div class="main-image-box" id="image0" style="background-image:url('<%= @narrative['photo_url'] %>')">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="right-rail" id="accordion">
+                  
+            <div class="tab">
+              <span class="icon"><i class="fa fa-compass"></i></span> Story
+            </div>
+            <div class="tab-content narrative default">
+              <p><%= @narrative['narrative_thread'] %></p>
+            </div>            
+            
+            <% @layers.each do |layer| %>
+
+              <% if layer['category'] == "history" %>
+                <div class="tab">
+                  <span class="icon"><i class="fa fa-university"></i></span> <%= layer['category'] %>
+                </div>
+                <div class="tab-content">
+                  <p class="question"><%= layer['question'] %></p>
+                  <p class="answer"><%= layer['answer'] %></p>
+                </div>
+              <% end %>
+
+              <% if layer['category'] == "backstory" %>
+                <div class="tab">
+                  <span class="icon"><i class="fa fa-newspaper-o"></i></span> <%= layer['category'] %>
+                </div>
+                <div class="tab-content">
+                  <p class="question"><%= layer['question'] %></p>
+                  <p class="answer"><%= layer['answer'] %></p>
+                </div>
+              <% end %>
+
+              <% if layer['category'] == "trivia" %>
+                <div class="tab">
+                  <span class="icon"><i class="fa fa-gamepad"></i></span> <%= layer['category'] %>
+                </div>
+                <div class="tab-content">
+                  <p class="question"><%= layer['question'] %></p>
+                  <p class="answer"><%= layer['answer'] %></p>
+                </div>
+              <% end %>
+
+              <% if layer['category'] == "numbers" %>
+                <div class="tab">
+                  <span class="icon"><i class="fa fa-bar-chart"></i></span> <%= layer['category'] %>
+                </div>
+                <div class="tab-content">
+                  <p class="big-num"><%= layer['callout_number'] %></p>
+                  <p class="num-descrip"><%= layer['description_text'] %></p>
+                </div>
+              <% end %>
+
+              <% if layer['category'] == "quote" %>
+                <div class="tab">
+                  <span class="icon"><i class="fa fa-quote-left"></i></span> <%= layer['category'] %>
+                </div>
+                <div class="tab-content">
+                  <p class="quote"><%= layer['quote_text'] %></p>
+                  <p class="quote-attr">- <%= layer['quote_attribution'] %></p>
+                </div>
+              <% end %>
+
+              <% if layer['category'] == "location" %>
+                <div class="tab">
+                  <span class="icon"><i class="fa fa-map-marker"></i></span> Location
+                </div>
+                <div class="tab-content">
+                  <p class="map-descrip"><%= layer['description_text'] %></p>
+                  <div class="map" id="map0"></div>
+                </div>
+              <% end %>
+
+            <% end %>
+          </div><!-- end .right-rail -->
+        </div><!-- end .col-sm-4 -->
+    </div><!-- end .article -->
+
+  </body>
+
+  <!-- Load our scripts -->
+  <script src="http://roadtryp.co/js/vendor/jquery-1.11.2.js"></script>
+  <script src="http://roadtryp.co/js/vendor/bootstrap.min.js"></script>
+  <script src="http://roadtryp.co/js/vendor/underscore-min.js"></script>
+  
+
+  <script type="text/javascript">
+    var setHeight = function() {
+      var height = $(window).height();
+      $('.main-image-box').height(height);
+      $('.right-rail').height(height);
+      return window.h = height;
+    };
+
+    $(window).on("resize", function () {
+        setHeight();
+    }).resize();
+
+    $('.tab').each(function(){
+      var l = $('.tab').length-1; //minus 1 for the open tab
+      $(this).css({'min-height': (h/2)/l - 2.5 }); // 2.5 accounts for padding
+      $('.tab-content').height(h/2 - $(this).height());
+      $('.map').height(h/3 - $(this).height());
+    });
+
+    // map
+    var map = L.map('map0');
+
+    <% @layers.each do |layer| %>
+      <% if layer['category'] == "location" %>
+        $('#accordion').find('.tab').click(function(){
+            $(this).next().slideToggle('fast').addClass('default');
+            $(".tab-content").not($(this).next()).slideUp('fast');
+            L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+            map.setView([<%= layer['lon'] %>, <%= layer['lon'] %>], 14);
+        });
+      <% end %>
+    <% end %>
+  </script>
+</html>
