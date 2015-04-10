@@ -27,7 +27,7 @@ end
 # Interface to edit articles
 
 get '/articles/create/?' do
-  erb :"articles/create", :layout => :layout
+  erb :"articles/create", :layout => :baselayout
 end
 
 # Endpoint to create articles
@@ -47,10 +47,10 @@ end
 # Render the article for the reader
 get '/articles/read/?' do
   @article = Article.where(source_url: params['source_url']).last
-  @narratives = Narrative.where(source_url: params['source_url'])
-  @layers = Layer.find_by(source_url: params['source_url'])
+  @narrative = Narrative.where(source_url: params['source_url']).last
+  @layers = Layer.where(source_url: params['source_url'])
 
-  erb :"articles/read", :layout => :layout
+  erb :"articles/read"
 end
 
 #######
@@ -91,7 +91,7 @@ get '/narratives/create/?' do
   # for now, just grab one pic
   @pic = get_photos(@article['source_url']).first
 
-  erb :"narratives/create", :layout => :layout
+  erb :"narratives/create", :layout => :baselayout
 end
 
 # Endpoint to create narratives
@@ -121,7 +121,7 @@ get '/layers/create/?' do
   @narrative = Narrative.find_by(photo_url: params['photo_url'])
   # @layers = Layer.find_by(photo_url: params['photo_url'])
 
-  erb :"layers/create", :layout => :layout
+  erb :"layers/create", :layout => :baselayout
 end
 
 # Endpoint to create narratives
@@ -134,7 +134,7 @@ post '/layers/' do
 
   if @layer.save
     @layers = Layer.where(photo_url: params['photo_url'])
-    erb :"layers/create", :layout => :layout
+    erb :"layers/create", :layout => :baselayout
   else
     "Sorry, there was a problem."
   end
