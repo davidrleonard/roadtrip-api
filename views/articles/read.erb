@@ -128,12 +128,12 @@
       $('.map').height(h/3 - $(this).height());
     });
 
-    // map
-    var map = L.map('map0');
-
     <% unless @layers.nil? %>
       <% @layers.each do |layer| %>
         <% if layer['category'] == "location" %>
+          // map
+          var map = L.map('map0');
+
           $('#accordion').find('.tab').click(function(){
               $(this).next().slideToggle('fast').addClass('default');
               $(".tab-content").not($(this).next()).slideUp('fast');
