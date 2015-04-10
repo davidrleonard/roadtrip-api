@@ -34,3 +34,14 @@
 .opener {
   margin-bottom: 2em;
 }
+
+/* display layers on edit page */
+
+.layer {
+  padding: 20px;
+}
+.layer-inner {
+  background-color: rgba(0,0,0,0.03);
+  padding: 20px;
+
+}

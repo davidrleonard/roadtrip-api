@@ -40,20 +40,47 @@
       <div class="layers">
         <div class="opener layer-block">
           <h3>Existing layers</h3>
-          <% @layers.each do |entry| %>
-            <p><strong>Category:</strong> <%= entry['category'] %></strong></p>
-            <p><strong>Rank:</strong> <%= entry['rank'] %></p>
-            
-            <% unless entry['image_url'] != "" %>
-              <p><strong>Image:</strong> <a href="<%= entry['image_url'] %>">Link</a></p>
+          <div class="row">
+            <% @layers.each do |entry| %>
+            <div class="col-sm-5 layer">
+                <div class="layer-inner">
+                <p><strong>Category:</strong> <%= entry['category'] %></strong></p>
+                <p><strong>Rank:</strong> <%= entry['rank'] %></p>
+                
+                <% unless entry['path'].nil? %>
+                  <p><strong>Image:</strong> <a href="<%= entry['image_path'] %>">Link</a></p>
+                <% end %>
+                <% unless entry['question'].nil? %>
+                  <p><strong>Question:</strong> <%= entry['question'] %></p>
+                <% end %>
+                <% unless entry['answer'].nil? %>
+                  <p><strong>Answer:</strong> <%= entry['answer'] %></p>
+                <% end %>
+                <% unless entry['lon'].nil? %>
+                  <p><strong>Longitude:</strong> <%= entry['lon'] %></p>
+                <% end %>
+                <% unless entry['lat'].nil? %>
+                  <p><strong>Latitude:</strong> <%= entry['lat'] %></p>
+                <% end %>
+                <% unless entry['zoom_level'].nil? %>
+                  <p><strong>Zoom level:</strong> <%= entry['zoom_level'] %></p>
+                <% end %>
+                <% unless entry['description_text'].nil? %>
+                  <p><strong>Description text:</strong> <%= entry['description_text'] %></p>
+                <% end %>
+                <% unless entry['callout_number'].nil? %>
+                  <p><strong>Callout number:</strong> <%= entry['callout_number'] %></p>
+                <% end %>
+                <% unless entry['quote_text'].nil? %>
+                  <p><strong>Quote text:</strong> <%= entry['quote_text'] %></p>
+                <% end %>
+                <% unless entry['quote_attribution'].nil? %>
+                  <p><strong>Qupte attribution:</strong> <%= entry['quote_attribution'] %></p>
+                <% end %>
+                </div><!-- end .layout-inner -->
+              </div><!-- end .layout -->
             <% end %>
-
-            <% if entry['category'] == "history" %>
-              <p><strong>Question:</strong> <%= entry['history_question'] %></strong></p>
-              <p><strong>Answer:</strong> <%= entry['history_answer'] %></p>
-            <% end %>
-
-          <% end %>
+          </div>
         </div>
       </div>
       <% end %>
@@ -84,7 +111,7 @@
           <div id="active">
             <!-- TYPE: HISTORY -->
             <div class="form-horizontal">
-              <div class="opener">
+              <div class="opener layer-block">
                 <h3>History</h3>
               </div>
 
@@ -99,19 +126,19 @@
                 </div>
               </div>
               
-              <!-- string :history_question -->
+              <!-- string :question -->
               <div class="form-group">
-                <label for="history_question" class="col-sm-2 control-label">Question:</label>
+                <label for="question" class="col-sm-2 control-label">Question:</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="history_question" name="history_question" placeholder="">
+                  <input type="text" class="form-control" id="question" name="question" placeholder="">
                 </div>
               </div>
 
-              <!-- string :history_answer -->
+              <!-- string :answer -->
               <div class="form-group">
-                <label for="history_answer" class="col-sm-2 control-label">Answer:</label>
+                <label for="answer" class="col-sm-2 control-label">Answer:</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="history_answer" name="history_answer" placeholder="">
+                  <input type="text" class="form-control" id="answer" name="answer" placeholder="">
                 </div>
               </div>
 
