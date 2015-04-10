@@ -11,7 +11,22 @@ require './models/layer'
 # Base route, just a friendly hello for now
 
 get '/' do
-  "This is the Roadtrip api. Please see more details at http://github.com/davidrleonard/roadtrip-api"
+  redirect 'articles/create/'
+end
+
+# Editing interface
+
+get '/articles/create/?' do
+  erb :"articles/create", :layout => :layout
+end
+
+get '/narratives/create/?' do
+  @article = Article.find_by(source_url: params['source_url'])
+  erb :"narratives/create", :layout => :layout
+end
+
+get '/layers/create/?' do
+  erb :"layers/create", :layout => :layout
 end
 
 # Get an article
