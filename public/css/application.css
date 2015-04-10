@@ -1,0 +1,33 @@
+/* layout */
+.container + .container,
+.row + .row {
+  margin-top: 2em;
+}
+
+
+/* form styles */
+.img-get {
+  max-width:800px;
+  margin:auto;
+}
+.img-get p {
+  font-size:18px;
+}
+
+.layer-block {
+  border-top: 1px solid #ccc;
+  padding-top:20px;
+  padding-bottom:20px;
+}
+
+.layer-block h3{
+  margin:0 0 15px 0;
+}
+
+.optional-form {
+  color:#aaa;
+}
+
+.opener {
+  margin-bottom: 2em;
+}
