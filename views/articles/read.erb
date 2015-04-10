@@ -15,10 +15,12 @@
   <body>
 
     <div id="article">
-
+        
         <div class="col-sm-8">
+        <% unless narrative.nil? %>
           <div class="main-image-box" id="image0" style="background-image:url('<%= @narrative['photo_url'] %>')">
           </div>
+        <% end %>
         </div>
         <div class="col-sm-4">
           <div class="right-rail" id="accordion">
@@ -27,7 +29,9 @@
               <span class="icon"><i class="fa fa-compass"></i></span> Story
             </div>
             <div class="tab-content narrative default">
-              <p><%= @narrative['narrative_thread'] %></p>
+              <% unless narrative.nil? %>
+                <p><%= @narrative['narrative_thread'] %></p>
+              <% end %>
             </div>            
             
             <% @layers.each do |layer| %>
