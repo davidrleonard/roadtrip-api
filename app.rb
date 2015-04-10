@@ -110,6 +110,7 @@ end
 get '/layers/create/?' do
   @article = Article.find_by(source_url: params['source_url'])
   @narrative = Narrative.find_by(photo_url: params['photo_url'])
+  @layers = Layer.find_by(photo_url: params['photo_url'])
 
   erb :"layers/create", :layout => :layout
 end
@@ -117,15 +118,14 @@ end
 # Endpoint to create narratives
 
 post '/layers/' do
-  content_type :json
 
   @article = Article.find_by(source_url: params['source_url'])
   @narrative = Narrative.find_by(photo_url: params['photo_url'])
   @layer = Layer.new(params)
 
   if @layer.save
-    # redirect 'narratives/create?source_url=' + @article[:source_url] + '&photo_url=' + @narrative[:photo_url] 
-    "Success!"
+    @layers = Layer.where(photo_url: params['photo_url'])
+    erb :"layers/create", :layout => :layout
   else
     "Sorry, there was a problem."
   end
