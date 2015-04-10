@@ -14,7 +14,7 @@ get '/' do
   "This is the Roadtrip api. Please see more details at http://github.com/davidrleonard/roadtrip-api"
 end
 
-# Article actions
+# Get an article
 
 get '/articles/?' do
   pass if params['source_url'].nil?
@@ -25,6 +25,8 @@ get '/articles/?' do
   @article.to_json
 end
 
+# Get all articles
+
 get '/articles/?' do
   content_type :json
   
@@ -32,18 +34,34 @@ get '/articles/?' do
   @articles.to_json
 end
 
+# FIRST STEP IN CREATION PROCESS
+# Create an article
+
 post '/articles/' do
   content_type :json
 
   @article = Article.new(params)
 
   if @article.save
-    @article.to_json
+    # @article.to_json
+    redirect request.referrer + '/narratives?source_url=' + @article[:source_url]
   else
     "Sorry, there was a problem."
   end
-
-  "You said #{params}"
 end
 
-#  Narrative actions
+#  Create a narrative section
+
+post '/narratives/:id' do
+  content_type :json
+
+  @article = Article.find_by(source_url: params['source_url'])
+  @narrative = @article.narratives.create(params)
+
+  if @narrative.save
+    @narrative.to_json
+    # redirect request.referrer + '/layers?source_url=' + @article[:source_url]
+  else
+    "Sorry, there was a problem."
+  end
+end
