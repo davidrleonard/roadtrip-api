@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150410044814) do
+ActiveRecord::Schema.define(version: 20150410065622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,9 +40,9 @@ ActiveRecord::Schema.define(version: 20150410044814) do
     t.string  "narrative_thread"
     t.string  "photo_url"
     t.string  "photog_name"
-    t.string  "photog_url"
     t.string  "caption_content"
     t.string  "source_url"
+    t.string  "photog_org"
   end
 
   add_index "narratives", ["article_id"], name: "index_narratives_on_article_id", using: :btree
