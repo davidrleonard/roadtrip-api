@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150409213104) do
+ActiveRecord::Schema.define(version: 20150410044814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,5 +24,27 @@ ActiveRecord::Schema.define(version: 20150409213104) do
     t.string "source_url"
     t.string "article_narratives_json"
   end
+
+  create_table "layers", force: :cascade do |t|
+    t.integer "narrative_id"
+    t.integer "rank"
+    t.string  "type"
+    t.string  "content"
+    t.string  "source_url"
+  end
+
+  add_index "layers", ["narrative_id"], name: "index_layers_on_narrative_id", using: :btree
+
+  create_table "narratives", force: :cascade do |t|
+    t.integer "article_id"
+    t.string  "narrative_thread"
+    t.string  "photo_url"
+    t.string  "photog_name"
+    t.string  "photog_url"
+    t.string  "caption_content"
+    t.string  "source_url"
+  end
+
+  add_index "narratives", ["article_id"], name: "index_narratives_on_article_id", using: :btree
 
 end

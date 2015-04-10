@@ -3,11 +3,18 @@ require 'sinatra/activerecord'
 require 'sinatra/json'
 require 'json'
 require './config/environments'
+# our models
 require './models/article'
+require './models/narrative'
+require './models/layer'
+
+# Base route, just a friendly hello for now
 
 get '/' do
   "This is the Roadtrip api. Please see more details at http://github.com/davidrleonard/roadtrip-api"
 end
+
+# Article actions
 
 get '/articles/?' do
   pass if params['source_url'].nil?
@@ -38,3 +45,5 @@ post '/articles/' do
 
   "You said #{params}"
 end
+
+#  Narrative actions
