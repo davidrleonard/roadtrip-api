@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150410085008) do
+ActiveRecord::Schema.define(version: 20150410092937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,9 +32,16 @@ ActiveRecord::Schema.define(version: 20150410085008) do
     t.string  "source_url"
     t.string  "photo_url"
     t.string  "image_path"
-    t.string  "history_question"
-    t.string  "history_answer"
     t.string  "category"
+    t.string  "question"
+    t.string  "answer"
+    t.float   "lon"
+    t.float   "lat"
+    t.integer "zoom_level"
+    t.string  "description_text"
+    t.string  "callout_number"
+    t.string  "quote_text"
+    t.string  "quote_attribution"
   end
 
   add_index "layers", ["narrative_id"], name: "index_layers_on_narrative_id", using: :btree
