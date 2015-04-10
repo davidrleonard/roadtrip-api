@@ -78,17 +78,20 @@ end
 # Interface to edit narratives
 
 get '/narratives/create/?' do
-  @article = Article.find_by(source_url: params['source_url'])
+  @article = Article.where(source_url: params['source_url']).last
+  # for now, just grab one pic
+  @pic = get_photos(@article['source_url']).first
+
   erb :"narratives/create", :layout => :layout
 end
 
 # Endpoint to create narratives
 
-post '/narratives/:id' do
+post '/narratives/' do
   content_type :json
 
   @article = Article.find_by(source_url: params['source_url'])
-  @narrative = @article.narratives.create(params)
+  @narrative = Narrative.new(params)
 
   if @narrative.save
     redirect '/layers/create?source_url=' + @article[:source_url] + '&photo_url=' + @narrative[:photo_url] 
@@ -105,20 +108,20 @@ end
 # Interface to edit layers
 
 get '/layers/create/?' do
+  @article = Article.find_by(source_url: params['source_url'])
   @narrative = Narrative.find_by(photo_url: params['photo_url'])
-  @layer = @narrative.layers.create(params)
 
   erb :"layers/create", :layout => :layout
 end
 
 # Endpoint to create narratives
 
-post '/layers/:id' do
+post '/layers/' do
   content_type :json
 
   @article = Article.find_by(source_url: params['source_url'])
   @narrative = Narrative.find_by(photo_url: params['photo_url'])
-  @layer = @narrative.layers.create(params)
+  @layer = Layer.new(params)
 
   if @layer.save
     # redirect 'narratives/create?source_url=' + @article[:source_url] + '&photo_url=' + @narrative[:photo_url] 
@@ -126,9 +129,4 @@ post '/layers/:id' do
   else
     "Sorry, there was a problem."
   end
-end
-
-get '/pics' do
-  @photos = get_photos("http://www.chicagotribune.com/news/ct-bison-return-illinois-met-20141006-story.html#page=1")
-  @photos.to_json
 end

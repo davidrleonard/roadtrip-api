@@ -1,3 +1,5 @@
+<%= @article.to_json %>
+
 <div class="container">
   <!-- Start our form, which we'll post to the api -->
   <form action="/narratives/" method="post">
@@ -14,9 +16,7 @@
 
         <!-- Render the first image we scrape out -->
         <div class="col-sm-6">
-          {% for d in site.data.mock.narratives %}
-          <img align="center" src="{{ d.metadata.photo_url }}" width="100%"/>
-          {% endfor %}
+          <img align="center" src="<%= @pic %>" width="100%"/>
         </div>
 
         <!-- Form fields -->
@@ -26,6 +26,14 @@
             <input type="text" id="narrative_thread" name="narrative_thread" class="form-control">
           </div>
           <div class="form-group">
+            <label for="photo_url">Photo url</label>
+            <input type="text" id="photo_url" name="photo_url" class="form-control" value="<%= @pic %>">
+          </div>
+          <div class="form-group">
+            <label for="caption_content">Photo caption</label>
+            <input type="text" id="caption_content" name="caption_content" class="form-control">
+          </div>
+          <div class="form-group">
             <label for="photog_name">Photographer name</label>
             <input type="text" id="photog_name" name="photog_name" class="form-control">
           </div>
@@ -33,15 +41,13 @@
             <label for="photog_org">Photographer title, org</label>
             <input type="text" id="photog_org" name="photog_org" class="form-control">
           </div>
-          <div class="form-group">
-            <label for="caption_content">Photo caption</label>
-            <input type="text" id="caption_content" name="caption_content" class="form-control">
-          </div>
         </div><!-- end .col-sm-6 -->
 
 
       </div><!-- end .layer-block -->
     </div><!-- end .row -->
-   <button type="submit" class="btn btn-default">Next step</button>
+
+    <input type="hidden" name="source_url" id="source_url" value="<%= @article['source_url'] %>">
+    <button type="submit" class="btn btn-default">Next step</button>
   </form>
 </div><!-- end .container -->
