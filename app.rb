@@ -14,7 +14,7 @@ get '/articles/?' do
 
   content_type :json
 
-  @article = Article.find_by(key: params['source_url'])
+  @article = Article.find_by(source_url: params['source_url'])
   @article.to_json
 end
 
