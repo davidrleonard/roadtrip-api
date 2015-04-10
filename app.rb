@@ -6,7 +6,7 @@ require './config/environments'
 require './models/article'
 
 get '/' do
-  "Hello, World!"
+  "This is the Roadtrip api. Please see more details at http://github.com/davidrleonard/roadtrip-api"
 end
 
 get '/articles/?' do
@@ -37,8 +37,4 @@ post '/articles/' do
   end
 
   "You said #{params}"
-end
-
-get '/test/' do
-  params.to_string
 end
