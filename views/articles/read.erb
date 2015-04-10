@@ -123,13 +123,6 @@
         });
     }).resize();
 
-    $('.tab').each(function(){
-      var l = $('.tab').length-1; //minus 1 for the open tab
-      $(this).css({'min-height': (h/2)/l - 2.5 }); // 2.5 accounts for padding
-      $('.tab-content').height(h/2 - $(this).height());
-      $('.map').height(h/3 - $(this).height());
-    });
-
     <% unless @layers.nil? %>
       <% @layers.each do |layer| %>
         <% if layer['category'] == "location" %>
