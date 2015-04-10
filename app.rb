@@ -9,7 +9,9 @@ get '/' do
   "Hello, World!"
 end
 
-get '/article' do
+get '/articles/?' do
+  pass if params['source_url'].nil?
+
   content_type :json
 
   @article = Article.find_by(key: params['source_url'])
