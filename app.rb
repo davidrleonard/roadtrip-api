@@ -44,6 +44,15 @@ post '/articles/' do
   end
 end
 
+# Render the article for the reader
+get '/articles/read/?' do
+  @article = Article.where(source_url: params['source_url']).last
+  @narratives = Narrative.where(source_url: params['source_url'])
+  @layers = Layer.find_by(source_url: params['source_url'])
+
+  erb :"articles/read", :layout => :layout
+end
+
 #######
 ## ARTICLES EXTERNAL API
 #######
@@ -90,7 +99,7 @@ end
 post '/narratives/' do
   content_type :json
 
-  @article = Article.find_by(source_url: params['source_url'])
+  @article = Article.where(source_url: params['source_url']).last
   @narrative = Narrative.new(params)
 
   if @narrative.save
@@ -108,9 +117,9 @@ end
 # Interface to edit layers
 
 get '/layers/create/?' do
-  @article = Article.find_by(source_url: params['source_url'])
+  @article = Article.where(source_url: params['source_url']).last
   @narrative = Narrative.find_by(photo_url: params['photo_url'])
-  @layers = Layer.find_by(photo_url: params['photo_url'])
+  # @layers = Layer.find_by(photo_url: params['photo_url'])
 
   erb :"layers/create", :layout => :layout
 end
@@ -119,7 +128,7 @@ end
 
 post '/layers/' do
 
-  @article = Article.find_by(source_url: params['source_url'])
+  @article = Article.where(source_url: params['source_url']).last
   @narrative = Narrative.find_by(photo_url: params['photo_url'])
   @layer = Layer.new(params)
 

@@ -36,7 +36,7 @@
     <!-- Content -->
     <div class="col-sm-9 col-sm-offset-1">
       <!-- Existing layers -->
-       <% unless @layers.nil? %>
+       <% unless @layers.nil? || @layers.empty? %>
       <div class="layers">
         <div class="opener layer-block">
           <h3>Existing layers</h3>
@@ -156,7 +156,7 @@
         <input type="hidden" name="source_url" id="source_url" value="<%= @article['source_url'] %>">
         <input type="hidden" name="photo_url" id="photo_url" value="<%= @narrative['photo_url'] %>">
         <button type="submit" class="btn btn-default">Add another layer</button>
-        <a href="/article/read?source_url=<%= @article['source_url'] %>" class="btn btn-default">Finish and publish</a>
+        <a href="/articles/read?source_url=<%= @article['source_url'] %>" class="btn btn-default">Finish and publish</a>
       </form>
     </div>
 
