@@ -39,13 +39,13 @@
        <% unless @layers.nil? %>
       <div class="layers">
         <div class="opener layer-block">
-          <h1>Existing layers</h1>
+          <h3>Existing layers</h3>
           <% @layers.each do |entry| %>
             <p><strong>Category:</strong> <%= entry['category'] %></strong></p>
             <p><strong>Rank:</strong> <%= entry['rank'] %></p>
             
-            <% unless entry['image_url'] == "" %>
-              <p><strong>Image:</strong> <%= entry['image_url'] %></p>
+            <% unless entry['image_url'] != "" %>
+              <p><strong>Image:</strong> <a href="<%= entry['image_url'] %>">Link</a></p>
             <% end %>
 
             <% if entry['category'] == "history" %>
